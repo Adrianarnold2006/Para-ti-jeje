@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumpleaños Nicole Duran</title>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa-suave: #ffe4e9;
+    --rosa-fuerte: #ff6b81;
+    --rosa-oscuro: #d42c6f;
+    --dorado: gold;
+    --fondo: linear-gradient(135deg, #fff0f5, #ffd1dc);
+  }
+  html,body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family:'Quicksand', sans-serif;
+    background: var(--fondo);
+    color: var(--rosa-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+  }
+  .heart-intro {
+    font-size: 10rem;
+    color: var(--rosa-fuerte);
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 10000;
+  }
+  .heart-intro.fade-out {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .main-content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    animation: fadeDown 1.5s ease forwards;
+  }
+  @keyframes fadeDown {
+    from { transform: translateY(-50px);opacity: 0 }
+    to { transform: translateY(0);opacity: 1 }
+  }
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    margin-top: 60px;
+    text-align: center;
+    color: var(--rosa-oscuro);
+    font-family:'Sacramento', cursive;
+    text-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
+    animation: fadeDown 1.5s ease forwards;
+  }
+  .mensaje {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 400px;
+    margin: 20px;
+    color: #6a3a59;
+    background: rgba(255,255,255,0.7);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #ffb6c1;
+    font-weight: 600;
+    animation: fadeIn 2s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { transform: translateY(50px);opacity: 0 }
+    to { transform: translateY(0);opacity: 1 }
+  }
+  .carta {
+    background: #ffffffcc;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px 5px #ffb6c1;
+    position: relative;
+    animation: fadeInUp 1s ease forwards;
+  }
+  @keyframes fadeInUp {
+    from { transform: translateY(30px);opacity: 0 }
+    to { transform: translateY(0);opacity: 1 }
+  }
+  .carta::before {
+    content: "🎀";
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 2.5rem;
+  }
+  .firma {
+    font-family:'Sacramento', cursive;
+    font-size: 1.7rem;
+    margin-top: 30px;
+    text-align: right;
+    color: var(--rosa-fuerte);
+  }
+  #confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+  }
+  .heart {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    animation: float 5s linear forwards;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-100vh) translateX(var(--horizontal)); }
+  }
+  .particle {
+    position: fixed;
+    bottom: -10px;
+    width: 10px;
+    height: 10px;
+    background: var(--dorado);
+    border-radius: 50%;
+    animation: rise 4s linear forwards;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-100vh) translateX(var(--horizontal)); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="heart-intro" id="heartIntro">❤️</div>
+
+  <div class="main-content" id="mainContent">
+    <h1>Feliz Cumpleaños, Nicole Duran ✨</h1>
+
+    <div class="carta">
+      <div class="mensaje">
+        hoy cumple una persona muy especial:  <strong>tú</strong>. 🌸<br><br>
+        Tu sonrisa ilumina el mundo como un rayo de sol, y tu corazón lo llena de dulzura. Que este nuevo año de vida te traiga magia, alegría y sueños cumplidos.<br><br>
+        Deseo que en este nuevo año de vida te rodee mucho amor, alegría y sueños cumplidos. Que cada paso que des te acerque más a lo que deseas, que vivas experiencias tan maravillosas como tú, y que siempre tengas a alguien a tu lado para recordarte lo importante que eres.
+        Disfruta de tu día al máximo, deja atrás lo negativo y abraza lo que está por venir. ❤️🎉<br><br>
+        <strong>¡Feliz Cumpleaños, mi señorita bonita! 🌈</strong>
+      </div>
+
+      <div class="firma">
+        Con cariño, tu admirador secreto ♥
+      </div>
+    </div>
+
+    <audio autoplay loop>
+      <source src="https://cdn.pixabay.com/download/audio/2022/03/28/audio_72e2c4624d.mp3?filename=romantic-guitar-music-7868.mp3" type="audio/mp3">
+    </audio>
+
+    <canvas id="confetti"></canvas>
+  </div>
+
+<script>
+  // Heart Intro
+  let clickCount = 0;
+  const heart = document.getElementById('heartIntro');
+  const main = document.getElementById('mainContent');
+
+  heart.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount >= 3) {
+      heart.classList.add('fade-out');
+      setTimeout(()=> {
+        heart.style.display = 'none';
+        main.style.display = 'flex';
+      }, 500);
+    }
+  });
+
+  // CONFETTI
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let pieces = [];
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function createPiece(){
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      size: Math.random() * 8 + 5,
+      speed: Math.random() * 3 + 2,
+      angle: Math.random() * 2 * Math.PI,
+      rotation: (Math.random() - 0.5) * 0.1,
+      color: `hsl(${Math.random() * 360}, 80%, 70%)`
+    };
+  }
+  function initConfetti(){
+    pieces = [];
+
+    for (let i = 0; i < 120; i++) pieces.push(createPiece()); 
+  }
+  function animate(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const p of pieces){
+      p.y += p.speed;
+      p.angle += p.rotation;
+      if (p.y > canvas.height) p.y = -p.size;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      ctx.restore();
+    }
+    requestAnimationFrame(animate);
+  }
+  initConfetti();
+  animate();
+
+  // CORAZONES FLOTANTES
+  function createHeart(){
+    const heart = document.createElement('div');
+    heart.textContent = '❤️';
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.setProperty('--horizontal', 50 * (Math.random() - 0.5) + 'px'); 
+    heart.style.fontSize = 1 + Math.random() * 2 + 'rem';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  }
+  setInterval(createHeart, 500);
+
+  // PARTÍCULAS DORADAS
+  function createParticle(){
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.setProperty('--horizontal', 30 * (Math.random() - 0.5) + 'px'); 
+    particle.style.width = Math.random() * 5 + 5 + 'px';
+    particle.style.height = particle.style.width;
+    document.body.appendChild(particle);
+    setTimeout(()=>particle.remove(),4000);
+  }
+  setInterval(createParticle, 200);
+</script>
+
+</body>
+</html>
